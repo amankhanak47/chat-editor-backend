@@ -26,8 +26,8 @@ io.on("connection", (socket) => {
     socket.on('joined', ({ user }) => {
         users[socket.id] = user;
         console.log(`${user} has joined`)
-        socket.broadcast.emit('userJoined',{user:"admin", message:`${users[socket.id]} has joined`})
         socket.emit('welcome', {user:"admin", message:`Welcome to the chat ${users[socket.id]}`})
+        socket.broadcast.emit('userJoined',{user:"admin", message:`${users[socket.id]} has joined`})
     })
 
 
@@ -36,15 +36,11 @@ io.on("connection", (socket) => {
        
     })
 
-
-    socket.on('left', () => {
-
-      
+    
+    socket.on("left", () => {
+        console.log("disconnect testing"); 
         socket.broadcast.emit('leave',{user:"admin",message:`${users[socket.id]} has left`})
-        
-
-    })
-
+    });
     
 })
 
