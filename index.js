@@ -21,11 +21,12 @@ const server = http.createServer(app)
 const io = socketIO(server)
 
 io.on("connection", (socket) => {
-    console.log("new connection")
+
+    // console.log("new connection")
 
     socket.on('joined', ({ user }) => {
         users[socket.id] = user;
-        console.log(`${user} has joined`)
+        // console.log(`${user} has joined`)
         socket.emit('welcome', {user:"admin", message:`Welcome to the chat ${users[socket.id]}`})
         socket.broadcast.emit('userJoined',{user:"admin", message:`${users[socket.id]} has joined`})
     })
@@ -38,7 +39,7 @@ io.on("connection", (socket) => {
 
     
     socket.on("left", () => {
-        console.log("disconnect testing"); 
+        // console.log("disconnect testing"); 
         socket.broadcast.emit('leave',{user:"admin",message:`${users[socket.id]} has left`})
     });
     
